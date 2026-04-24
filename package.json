@@ -1,0 +1,34 @@
+{
+  "name": "plumb",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Signer-side security for Solana multisigs.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev:ext": "pnpm --filter @plumb/extension dev",
+    "dev:dash": "pnpm --filter @plumb/dashboard dev",
+    "dev:api": "pnpm --filter @plumb/api-runner dev",
+    "dev": "concurrently -n ext,dash,api -c blue,magenta,green \"pnpm dev:ext\" \"pnpm dev:dash\" \"pnpm dev:api\"",
+    "build": "pnpm -r --filter \"@plumb/*\" build",
+    "test": "pnpm -r --filter \"@plumb/*\" test",
+    "typecheck": "pnpm -r --filter \"@plumb/*\" typecheck",
+    "lint": "pnpm -r --filter \"@plumb/*\" lint",
+    "demo": "node scripts/demo.mjs",
+    "fixtures": "node scripts/build-fixtures.mjs"
+  },
+  "devDependencies": {
+    "@solana/web3.js": "^1.95.4",
+    "concurrently": "^9.0.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@vitejs/plugin-react": "^4.3.4"
+    }
+  }
+}
