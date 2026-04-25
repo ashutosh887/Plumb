@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: #0c0d10;
+  color: #f0f1f3;
+  font-family: 'Inter', system-ui, sans-serif;
+}
