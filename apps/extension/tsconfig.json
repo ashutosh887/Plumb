@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["chrome", "wxt/client"],
+    "paths": {
+      "@plumb/core": ["../../packages/core/src/index.ts"],
+      "@plumb/core/*": ["../../packages/core/src/*"]
+    }
+  },
+  "include": [".wxt/types/**/*", "entrypoints/**/*", "components/**/*", "lib/**/*"]
+}
