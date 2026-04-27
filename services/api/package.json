@@ -1,0 +1,13 @@
+{
+  "name": "@plumb/api-runner",
+  "version": "0.0.1",
+  "private": true,
+  "description": "thin pnpm shim so the FastAPI service plays nicely with the workspace dev orchestration",
+  "scripts": {
+    "dev": "uvicorn plumb_api.main:app --reload --port 8000",
+    "test": "echo 'python tests run in CI; locally use .venv/bin/pytest'",
+    "lint": "echo 'python lint runs in CI'",
+    "typecheck": "echo 'python — checked via ruff/mypy in CI'",
+    "build": "echo 'no build step — python source-distributed'"
+  }
+}
