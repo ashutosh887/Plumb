@@ -1,0 +1,10 @@
+{
+  "label": "Clean Squads vault transfer",
+  "narrative": "Vanilla System transfer — no findings, used to demo the clean-state UX.",
+  "expected_findings": [],
+  "tx_base64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQABA5f+gTsEcHwDOng/IyramNOmkUqhJpgytYpOyuvDHwo1rIBWx/pHDPXBSRPpRiCUyag0ftObnMM5N2QVjDvYvkgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQICAAEMAgAAAEBLTAAAAAAAAA==",
+  "meta": {
+    "signer": "BEKeZsgEBAEd4F8fHHbzB1oNY4hbfWHeJxi9gpwHzjiU",
+    "recipient": "CcNdQURrEqDPWwuFbRi192THY1diyKK2NmMm2neWeTUB"
+  }
+}

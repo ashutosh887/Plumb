@@ -1,0 +1,23 @@
+// Synthetic Anchor source — represents the MALICIOUSLY UPGRADED program.
+// Note the swap: is_signed_by_quorum → is_signed_by_one. One signer is now sufficient
+// to migrate the admin. This is the demo's "smoking gun" frame.
+
+#[program]
+pub mod council {
+    use super::*;
+
+    pub fn migrate_admin(ctx: Context<Migrate>, new_admin: Pubkey) -> Result<()> {
+        // Single-signer gate — quorum protection removed.
+        require!(ctx.accounts.council.is_signed_by_one, ErrorCode::Unauthorized);
+        // upgrade_authority check also removed.
+        ctx.accounts.config.admin = new_admin;
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct Migrate<'info> {
+    pub council: Account<'info, Council>,
+    pub config: Account<'info, Config>,
+    pub signer: Signer<'info>,
+}

@@ -1,0 +1,49 @@
+{
+  "label": "Drift-class durable-nonce admin transfer (synthetic)",
+  "narrative": "Pre-signed durable-nonce tx that, when triggered, runs a Squads V4 admin action. Mirrors the April 1 2026 Drift attack vehicle.",
+  "expected_findings": [
+    "durable-nonce",
+    "nonce-owner-mismatch",
+    "multisig-admin-config_transaction_execute",
+    "signer-check-removed",
+    "authority-check-removed"
+  ],
+  "tx_base64": "AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAIBAgaX/oE7BHB8Azp4PyMq2pjTppFKoSaYMrWKTsrrwx8KNZMbMemwoKhJhilkLCUr+SdIpsJxu7lihCajc0U+E1mDvcK3QCSflM0i3iPhxnZw5rWyWMbSQEf0orYqWMeKOPSC4VxmeHoYouL1VOyeoNG9xQklMshyTFDZpfjgMlk5/QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABoHEzkfiI2i4sVVeyIevCS78fvu2bKP1L79o1Kyct6gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEAwIEAQQEAAAABQIDAAgRAAAAAAAAAAA=",
+  "meta": {
+    "signer": "BEKeZsgEBAEd4F8fHHbzB1oNY4hbfWHeJxi9gpwHzjiU",
+    "noncePubkey": "DmkGEBCCnQHxmoDPpEYj51xepRGr7WViQXuWGYVLuz9H",
+    "nonceAuthority": "AuEz1cnzT3wmLy2PfTWLC8ZvMPG4dV2hHMdhXzjB4suU",
+    "nonceAccountOwnerOverride": "AQLHstXW8Aa7QjVS4AWSYCnCj53oLchLFEmyDh2DcAfs",
+    "multisig": "9ouK3RcGM4nZS8tm63gEwiAugqdEHNJmeTdACKKLP5Gg",
+    "estimated_replay_window_days": 47,
+    "bpfDiff": {
+      "ok": true,
+      "oldHash": "a91d2b6c4e7f9081",
+      "newHash": "b3e84d1f2c5a6709",
+      "controlFlowChanges": 1,
+      "signerChecksRemoved": [
+        "council.is_signed_by_quorum"
+      ],
+      "signerChecksAdded": [
+        "council.is_signed_by_one"
+      ],
+      "authorityChecksRemoved": [
+        "council.upgrade_authority == ctx.accounts.signer.key()"
+      ],
+      "authorityChecksAdded": [],
+      "diff": [
+        {
+          "kind": "changed",
+          "oldLine": "require!(ctx.accounts.council.is_signed_by_quorum, ErrorCode::Unauthorized);",
+          "newLine": "require!(ctx.accounts.council.is_signed_by_one, ErrorCode::Unauthorized);",
+          "lineNo": 5
+        },
+        {
+          "kind": "removed",
+          "oldLine": "require!(ctx.accounts.council.upgrade_authority == ctx.accounts.signer.key(), ErrorCode::Unauthorized);",
+          "lineNo": 6
+        }
+      ]
+    }
+  }
+}

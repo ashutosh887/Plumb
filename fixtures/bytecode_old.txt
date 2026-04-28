@@ -1,0 +1,22 @@
+// Synthetic Anchor source — represents the program BEFORE the malicious upgrade.
+// In the demo, we treat this as the disassembled output of the deployed bytecode.
+
+#[program]
+pub mod council {
+    use super::*;
+
+    pub fn migrate_admin(ctx: Context<Migrate>, new_admin: Pubkey) -> Result<()> {
+        // Quorum gate — the protective invariant.
+        require!(ctx.accounts.council.is_signed_by_quorum, ErrorCode::Unauthorized);
+        require!(ctx.accounts.council.upgrade_authority == ctx.accounts.signer.key(), ErrorCode::Unauthorized);
+        ctx.accounts.config.admin = new_admin;
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct Migrate<'info> {
+    pub council: Account<'info, Council>,
+    pub config: Account<'info, Config>,
+    pub signer: Signer<'info>,
+}
