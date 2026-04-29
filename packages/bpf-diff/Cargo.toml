@@ -1,0 +1,26 @@
+[package]
+name = "plumb-bpf-diff"
+version = "0.0.1"
+edition = "2021"
+description = "Disassemble two Solana program ELF blobs and emit a structured diff (signer checks, authority checks, control flow)."
+license = "MIT"
+
+[[bin]]
+name = "plumb-bpf-diff"
+path = "src/bin/plumb-bpf-diff.rs"
+
+[lib]
+name = "plumb_bpf_diff"
+path = "src/lib.rs"
+
+[dependencies]
+solana_rbpf = "0.8.5"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+base64 = "0.22"
+thiserror = "1"
+anyhow = "1"
+
+[dev-dependencies]
+proptest = "1"
