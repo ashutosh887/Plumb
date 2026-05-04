@@ -6,6 +6,10 @@ Plumb is a browser extension that overlays the Squads V4 approval modal with a p
 
 **This repo is the submission for the [Solana Frontier Hackathon](https://colosseum.com/frontier) (Colosseum, 2026-04-06 → 2026-05-11).**
 
+## Origin
+
+> *"I was scoping a Solana treasury setup with Squads in late March. April 1 hit. I read every Drift post-mortem and realized: I was about to be one of those signers — staring at base64 I couldn't decode, trusting the deployer's PDF. I built Plumb because I refuse to be the next signer who gets socially engineered."*
+
 ## Why this exists
 
 The Drift attack wasn't a contract bug. It was social engineering plus a feature called *durable nonces* — transactions that can be signed today and triggered weeks later. The attackers spent months building trust, then got the Security Council to pre-sign transfers that lay dormant until April 1.
@@ -22,35 +26,39 @@ Three features. Nothing else until after May 11.
 
 What we explicitly do NOT ship for the hackathon: risk scoring, alerts, multi-sig coordination dashboards, Ledger integration, post-mortem replay. These are v2.
 
+Plumb is **read-only at the signer interface** — the extension never modifies, signs, or co-signs a transaction. The signer still clicks Approve in their wallet.
+
 ## Repo layout
 
 ```
 apps/extension       WXT (Manifest V3, React) — the Plumb overlay
-apps/dashboard       Next.js — landing page + /inspect shareable inspector
-services/api         FastAPI — decode, sim, BPF-diff bridge
-packages/core        Shared TS types + decoders + risk engine
-packages/bpf-diff    Rust — solana_rbpf-based disassembly + diff
+apps/dashboard       Next.js — landing + /inspect inspector + /demo synthetic Squads modal
+services/api         FastAPI — reserved for v2 server-side sim (not in demo path)
+packages/core        Shared TS types + decoders + risk engine — runs in extension
+packages/bpf-diff    Rust — solana_rbpf disassembly + diff (reserved for real ELF input)
 fixtures/            Demo inputs (Drift-class admin transfer + bytecode pair)
-docs/                Demo script, distribution checklist, accelerator app outline
+docs/                Demo script + submission checklist
+scripts/             build-fixtures.mjs, demo.mjs
 ```
 
 ## Common commands
 
+The demo runs from two processes: the dashboard and the extension. Decoding and risk assessment happen client-side in the extension via `@plumb/core` — no Python, no Rust binary needed for the demo recording.
+
 ```sh
 pnpm install
-cargo build --release -p plumb-bpf-diff
-pnpm dev                 # extension + dashboard + API in parallel
-pnpm test                # vitest across TS workspaces
-cargo test -p plumb-bpf-diff
-pnpm typecheck
-pnpm demo                # demo preflight checks
+pnpm fixtures                          # build base64 tx fixtures
+pnpm --filter @plumb/dashboard dev     # http://localhost:3000/demo
+pnpm --filter @plumb/extension dev     # opens Chrome with the extension loaded
+pnpm typecheck                         # all TS workspaces clean
+pnpm build                             # extension + dashboard production builds
 ```
 
-To run a single test:
+For v2 / server-side work (not needed for the hackathon demo):
 
 ```sh
-pnpm --filter @plumb/core test -- risk.test.ts
-cargo test -p plumb-bpf-diff diff
+cargo build --release -p plumb-bpf-diff   # needs Rust toolchain
+# FastAPI: needs Python 3.11+. cd services/api && python -m venv .venv && .venv/bin/pip install -e ".[dev]"
 ```
 
 ## Built on
