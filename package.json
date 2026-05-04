@@ -11,8 +11,7 @@
   "scripts": {
     "dev:ext": "pnpm --filter @plumb/extension dev",
     "dev:dash": "pnpm --filter @plumb/dashboard dev",
-    "dev:api": "pnpm --filter @plumb/api-runner dev",
-    "dev": "concurrently -n ext,dash,api -c blue,magenta,green \"pnpm dev:ext\" \"pnpm dev:dash\" \"pnpm dev:api\"",
+    "dev": "concurrently -n ext,dash -c blue,magenta \"pnpm dev:ext\" \"pnpm dev:dash\"",
     "build": "pnpm -r --filter \"@plumb/*\" build",
     "test": "pnpm -r --filter \"@plumb/*\" test",
     "typecheck": "pnpm -r --filter \"@plumb/*\" typecheck",
