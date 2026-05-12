@@ -2,12 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --ring: 240 4.9% 83.9%;
+    --radius: 0.5rem;
+    color-scheme: dark;
+  }
 
-html, body {
-  background: #0c0d10;
-  color: #f0f1f3;
-  font-family: 'Inter', system-ui, sans-serif;
+  html, body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
 }
