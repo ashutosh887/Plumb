@@ -20,10 +20,7 @@ This repo is the submission for the [Solana Frontier Hackathon](https://colosseu
 | | |
 |---|---|
 | Demo video (90s) | _published with submission_ |
-| Live demo | _`https://<deployment>/demo`_ |
-| Pitch deck | [`docs/PITCH.md`](docs/PITCH.md) |
-| Demo script | [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) |
-| Submission notes | [`docs/SUBMISSION.md`](docs/SUBMISSION.md) |
+| Live demo | _`https://plumb-dashboard.vercel.app/`_ |
 | Track | Grand Champion + Cohort 5 |
 
 ---
@@ -138,7 +135,6 @@ services/api         FastAPI — reserved for v2 server-side sim (not in demo pa
 packages/core        Shared TS types + decoders + risk engine — runs in extension
 packages/bpf-diff    Rust — solana_rbpf disassembly + diff (reserved for real ELF input)
 fixtures/            Demo inputs (Drift-class admin transfer + clean vault transfer)
-docs/                Demo script, pitch deck, distribution plan, submission checklist
 scripts/             build-fixtures.mjs, demo.mjs
 ```
 
