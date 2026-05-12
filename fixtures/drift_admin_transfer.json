@@ -16,6 +16,37 @@
     "nonceAccountOwnerOverride": "AQLHstXW8Aa7QjVS4AWSYCnCj53oLchLFEmyDh2DcAfs",
     "multisig": "9ouK3RcGM4nZS8tm63gEwiAugqdEHNJmeTdACKKLP5Gg",
     "estimated_replay_window_days": 47,
+    "sim": {
+      "ok": true,
+      "logs": [
+        "Program SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf invoke [1]",
+        "Program log: Instruction: ConfigTransactionExecute",
+        "Program log: Multisig: 9ouK3RcGM4nZS8tm63gEwiAugqdEHNJmeTdACKKLP5Gg",
+        "Program log: Action: SetMembers",
+        "Program SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf consumed 47218 of 200000 compute units",
+        "Program SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf success"
+      ],
+      "unitsConsumed": 47218,
+      "accountChanges": [
+        {
+          "pubkey": "9ouK3RcGM4nZS8tm63gEwiAugqdEHNJmeTdACKKLP5Gg",
+          "lamportsBefore": 2039280,
+          "lamportsAfter": 2039280,
+          "dataLenBefore": 392,
+          "dataLenAfter": 168,
+          "ownerBefore": "SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf",
+          "ownerAfter": "SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf"
+        }
+      ],
+      "authorityChanges": [
+        {
+          "pubkey": "9ouK3RcGM4nZS8tm63gEwiAugqdEHNJmeTdACKKLP5Gg",
+          "field": "multisigMembers",
+          "before": "5 council members (3-of-5 threshold)",
+          "after": "1 member: H7PiGqqUaanBovwKgEtreJbKmQe6dbq6VTrw6guy7ZgL (1-of-1)"
+        }
+      ]
+    },
     "bpfDiff": {
       "ok": true,
       "oldHash": "a91d2b6c4e7f9081",
@@ -43,7 +74,9 @@
           "oldLine": "require!(ctx.accounts.council.upgrade_authority == ctx.accounts.signer.key(), ErrorCode::Unauthorized);",
           "lineNo": 6
         }
-      ]
+      ],
+      "oldSource": "// Synthetic Anchor source — represents the program BEFORE the malicious upgrade.\n// In the demo, we treat this as the disassembled output of the deployed bytecode.\n\n#[program]\npub mod council {\n    use super::*;\n\n    pub fn migrate_admin(ctx: Context<Migrate>, new_admin: Pubkey) -> Result<()> {\n        // Quorum gate — the protective invariant.\n        require!(ctx.accounts.council.is_signed_by_quorum, ErrorCode::Unauthorized);\n        require!(ctx.accounts.council.upgrade_authority == ctx.accounts.signer.key(), ErrorCode::Unauthorized);\n        ctx.accounts.config.admin = new_admin;\n        Ok(())\n    }\n}\n\n#[derive(Accounts)]\npub struct Migrate<'info> {\n    pub council: Account<'info, Council>,\n    pub config: Account<'info, Config>,\n    pub signer: Signer<'info>,\n}\n",
+      "newSource": "// Synthetic Anchor source — represents the MALICIOUSLY UPGRADED program.\n// Note the swap: is_signed_by_quorum → is_signed_by_one. One signer is now sufficient\n// to migrate the admin. This is the demo's \"smoking gun\" frame.\n\n#[program]\npub mod council {\n    use super::*;\n\n    pub fn migrate_admin(ctx: Context<Migrate>, new_admin: Pubkey) -> Result<()> {\n        // Single-signer gate — quorum protection removed.\n        require!(ctx.accounts.council.is_signed_by_one, ErrorCode::Unauthorized);\n        // upgrade_authority check also removed.\n        ctx.accounts.config.admin = new_admin;\n        Ok(())\n    }\n}\n\n#[derive(Accounts)]\npub struct Migrate<'info> {\n    pub council: Account<'info, Council>,\n    pub config: Account<'info, Config>,\n    pub signer: Signer<'info>,\n}\n"
     }
   }
 }
