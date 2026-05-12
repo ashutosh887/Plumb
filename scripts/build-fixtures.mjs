@@ -16,7 +16,7 @@
  * We never sign — Plumb is read-only at the signer interface, and signed/unsigned
  * is irrelevant for decoding.
  */
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import {
@@ -126,10 +126,48 @@ const cleanTxB64 = compile(
   NONCE_BLOCKHASH,
 );
 
+// Pre-baked Surfpool sim result for the Drift fixture. Mirrors what
+// `simulateTransaction` against a forked-mainnet snapshot would surface for the
+// admin-transfer pre-sign — but pre-computed so the demo doesn't need Surfpool
+// running. The Rust + RPC integration ships post-hackathon for real-input flows.
+const PREBAKED_DRIFT_SIM = {
+  ok: true,
+  logs: [
+    'Program SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf invoke [1]',
+    'Program log: Instruction: ConfigTransactionExecute',
+    'Program log: Multisig: 9ouK3RcGM4nZS8tm63gEwiAugqdEHNJmeTdACKKLP5Gg',
+    'Program log: Action: SetMembers',
+    'Program SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf consumed 47218 of 200000 compute units',
+    'Program SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf success',
+  ],
+  unitsConsumed: 47218,
+  accountChanges: [
+    {
+      pubkey: multisig.publicKey.toBase58(),
+      lamportsBefore: 2039280,
+      lamportsAfter: 2039280,
+      dataLenBefore: 392,
+      dataLenAfter: 168,
+      ownerBefore: 'SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf',
+      ownerAfter: 'SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf',
+    },
+  ],
+  authorityChanges: [
+    {
+      pubkey: multisig.publicKey.toBase58(),
+      field: 'multisigMembers',
+      before: '5 council members (3-of-5 threshold)',
+      after: '1 member: H7PiGqqUaanBovwKgEtreJbKmQe6dbq6VTrw6guy7ZgL (1-of-1)',
+    },
+  ],
+};
+
 // Pre-baked BPF diff for the demo's "Inspect bytecode" frame. Mirrors what the
 // Rust plumb-bpf-diff crate produces against the synthetic Anchor source pair
 // in fixtures/bytecode_old.txt and fixtures/bytecode_new.txt — but pre-computed
 // so the demo doesn't need a Rust subprocess running.
+const oldSource = readFileSync(resolve(FIX_DIR, 'bytecode_old.txt'), 'utf8');
+const newSource = readFileSync(resolve(FIX_DIR, 'bytecode_new.txt'), 'utf8');
 const PREBAKED_BPF_DIFF = {
   ok: true,
   oldHash: 'a91d2b6c4e7f9081',
@@ -153,6 +191,8 @@ const PREBAKED_BPF_DIFF = {
       lineNo: 6,
     },
   ],
+  oldSource,
+  newSource,
 };
 
 writeFixture('drift_admin_transfer.json', {
@@ -174,6 +214,7 @@ writeFixture('drift_admin_transfer.json', {
     nonceAccountOwnerOverride: attackerOwner,
     multisig: multisig.publicKey.toBase58(),
     estimated_replay_window_days: 47,
+    sim: PREBAKED_DRIFT_SIM,
     bpfDiff: PREBAKED_BPF_DIFF,
   },
 });
