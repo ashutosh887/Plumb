@@ -17,6 +17,7 @@
     "@plumb/core": "workspace:*",
     "@solana/kit": "^2.0.0",
     "@solana/web3.js": "^1.95.4",
+    "bs58": "^6.0.0",
     "react": "^18.3.1",
     "react-diff-viewer-continued": "^4.2.2",
     "react-dom": "^18.3.1"
