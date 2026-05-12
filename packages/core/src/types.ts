@@ -58,6 +58,8 @@ export interface BpfDiff {
   authorityChecksRemoved: string[];
   authorityChecksAdded: string[];
   diff: Array<{ kind: 'added' | 'removed' | 'changed'; oldLine?: string; newLine?: string; lineNo: number }>;
+  oldSource?: string;
+  newSource?: string;
 }
 
 export interface InspectionReport {
