@@ -12,6 +12,7 @@ export default defineConfig({
       'https://devnet.squads.so/*',
       'https://*.helius-rpc.com/*',
       'https://api.mainnet-beta.solana.com/*',
+      'https://api.devnet.solana.com/*',
     ],
     action: {
       default_title: 'Plumb',
