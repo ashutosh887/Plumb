@@ -27,34 +27,62 @@ export default function Landing() {
 
 function Nav() {
   return (
-    <nav className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 pt-6">
-      <div className="flex items-center gap-3">
+    <div className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
         <Logo />
-        <span className="hidden text-sm text-muted-foreground sm:inline">
-          Signer-side security for Solana multisigs
-        </span>
-      </div>
-      <div className="flex items-center gap-2">
-        <Badge>Solana Frontier 2026</Badge>
-        <a
-          href="https://github.com/ashutosh887/plumb"
-          className="ml-2 inline-flex h-9 items-center rounded-md border border-border px-3 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        >
-          GitHub
-        </a>
-      </div>
-    </nav>
+        <div className="flex items-center gap-1">
+          <Link
+            href="/demo"
+            className="hidden h-9 items-center rounded-md px-3 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:inline-flex"
+          >
+            Demo
+          </Link>
+          <Link
+            href="/inspect"
+            className="hidden h-9 items-center rounded-md px-3 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:inline-flex"
+          >
+            Inspect
+          </Link>
+          <a
+            href="https://github.com/ashutosh887/plumb"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <GitHubIcon />
+          </a>
+          <a
+            href="https://chrome.google.com/webstore/detail/plumb"
+            className="ml-2 inline-flex h-9 items-center rounded-md bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
+          >
+            Install
+          </a>
+        </div>
+      </nav>
+    </div>
   );
 }
 
 function Logo() {
   return (
-    <div className="flex items-center gap-2">
-      <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-foreground text-[15px] font-bold text-background">
+    <Link href="/" className="flex items-center gap-2.5">
+      <span
+        aria-hidden
+        className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-foreground text-[13px] font-bold text-background"
+      >
         P
       </span>
-      <span className="text-lg font-semibold tracking-tight">Plumb</span>
-    </div>
+      <span className="text-[15px] font-semibold tracking-tight">Plumb</span>
+    </Link>
+  );
+}
+
+function GitHubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden>
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55 0-.28-.01-1.02-.02-2-3.2.69-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.45.11-3.02 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.62 1.57.23 2.73.11 3.02.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.81-.01 3.19 0 .31.21.67.8.55C20.22 21.38 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+    </svg>
   );
 }
 
@@ -70,21 +98,20 @@ function Badge({ children }: { children: React.ReactNode }) {
 function Hero() {
   return (
     <section className="relative pt-24 pb-28 text-center sm:pt-32 sm:pb-36">
-      <div className="mx-auto mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-foreground text-3xl font-bold text-background shadow-[0_20px_60px_-20px_rgba(153,69,255,0.6)]">
-        P
-      </div>
+      <span className="mx-auto mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
+        <span className="relative inline-flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#14F195] opacity-70" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#14F195]" />
+        </span>
+        Open-source · Solana Frontier 2026
+      </span>
 
-      <h1 className="font-serif text-6xl leading-[1] tracking-tight sm:text-7xl md:text-[96px]">
-        Plumb
+      <h1 className="mx-auto max-w-4xl font-serif text-5xl leading-[1.02] tracking-tight sm:text-6xl md:text-[80px]">
+        See what you're <span className="italic text-muted-foreground">actually</span> signing.
       </h1>
 
-      <p className="mx-auto mt-5 max-w-xl font-serif text-xl italic text-muted-foreground sm:text-2xl">
-        Signer-side security for Solana multisigs.
-      </p>
-
-      <p className="mx-auto mt-8 max-w-xl text-balance text-base text-muted-foreground/90 sm:text-lg">
-        A browser extension that decodes Squads V4 approvals into plain English
-        before you sign.
+      <p className="mx-auto mt-8 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
+        Plain-English decoding for every Squads V4 approval — before you click.
       </p>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -100,12 +127,6 @@ function Hero() {
           className="inline-flex h-11 items-center gap-2 rounded-md border border-border bg-background/40 px-5 text-sm font-medium text-foreground backdrop-blur transition-colors hover:bg-muted"
         >
           Watch the 90s demo
-        </Link>
-        <Link
-          href="/inspect"
-          className="inline-flex h-11 items-center gap-2 rounded-md px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Inspect any transaction →
         </Link>
       </div>
 
@@ -364,25 +385,27 @@ function BuiltOn() {
 
 function Footer() {
   return (
-    <footer className="relative border-t border-border py-10">
-      <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground">
-        <div className="flex items-center gap-3">
-          <Logo />
-          <span className="text-muted-foreground/70">·</span>
-          <span>Built for Solana Frontier · Colosseum 2026</span>
-        </div>
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
-          <a href="https://github.com/ashutosh887/plumb" className="hover:text-foreground">
-            GitHub
-          </a>
-          <Link href="/inspect" className="hover:text-foreground">
-            Inspect
-          </Link>
+    <footer className="relative border-t border-border py-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
+        <span>© 2026 Plumb · Built for Solana Frontier · MIT licensed</span>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <Link href="/demo" className="hover:text-foreground">
             Demo
           </Link>
+          <Link href="/inspect" className="hover:text-foreground">
+            Inspect
+          </Link>
           <a href="https://x.com/plumb_so" className="hover:text-foreground">
             @plumb_so
+          </a>
+          <a
+            href="https://github.com/ashutosh887/plumb"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <GitHubIcon />
           </a>
         </div>
       </div>
