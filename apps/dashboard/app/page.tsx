@@ -69,29 +69,22 @@ function Badge({ children }: { children: React.ReactNode }) {
 
 function Hero() {
   return (
-    <section className="relative pt-20 pb-24 text-center sm:pt-28 sm:pb-32">
-      <div className="mx-auto mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur">
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-destructive" />
-        </span>
-        Drift incident
-        <span className="text-foreground/40">·</span>
-        <span>April 1, 2026</span>
-        <span className="text-foreground/40">·</span>
-        <span className="text-foreground">$285.3M drained</span>
+    <section className="relative pt-24 pb-28 text-center sm:pt-32 sm:pb-36">
+      <div className="mx-auto mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-foreground text-3xl font-bold text-background shadow-[0_20px_60px_-20px_rgba(153,69,255,0.6)]">
+        P
       </div>
 
-      <h1 className="font-serif text-6xl leading-[0.95] tracking-tight sm:text-7xl md:text-[88px]">
-        The exploit wasn't a bug.
-        <br />
-        <span className="italic text-muted-foreground">It was a PDF.</span>
+      <h1 className="font-serif text-6xl leading-[1] tracking-tight sm:text-7xl md:text-[96px]">
+        Plumb
       </h1>
 
-      <p className="mx-auto mt-8 max-w-2xl text-balance text-lg text-muted-foreground sm:text-xl">
-        Squads council members signed a base64 string they couldn't read. Plumb
-        is the seatbelt every Solana signer puts on before they click Approve —
-        a browser extension that decodes the transaction in plain English.
+      <p className="mx-auto mt-5 max-w-xl font-serif text-xl italic text-muted-foreground sm:text-2xl">
+        Signer-side security for Solana multisigs.
+      </p>
+
+      <p className="mx-auto mt-8 max-w-xl text-balance text-base text-muted-foreground/90 sm:text-lg">
+        A browser extension that decodes Squads V4 approvals into plain English
+        before you sign.
       </p>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -116,7 +109,7 @@ function Hero() {
         </Link>
       </div>
 
-      <p className="mx-auto mt-12 max-w-md text-xs text-muted-foreground/70">
+      <p className="mx-auto mt-10 max-w-md text-xs text-muted-foreground/70">
         Read-only at the signer interface. Plumb never modifies, signs, or
         co-signs a transaction.
       </p>
@@ -277,49 +270,42 @@ function BuiltOn() {
     name: string;
     role: string;
     href: string;
-    mark: string;
     color: string;
   }[] = [
     {
       name: 'Squads V4',
       role: 'Multisig program',
       href: 'https://github.com/Squads-Protocol/v4',
-      mark: 'S',
       color: '#9945FF',
     },
     {
       name: 'Surfpool',
       role: 'Mainnet-fork simulation',
       href: 'https://docs.surfpool.run',
-      mark: 'Sp',
       color: '#22D3EE',
     },
     {
       name: 'Solana Attestation Service',
       role: 'Approval receipts',
       href: 'https://attest.solana.com',
-      mark: 'A',
       color: '#14F195',
     },
     {
       name: 'Helius',
       role: 'Dedicated RPC',
       href: 'https://www.helius.dev',
-      mark: 'H',
       color: '#F472B6',
     },
     {
       name: 'WXT',
       role: 'MV3 extension framework',
       href: 'https://wxt.dev',
-      mark: 'W',
       color: '#60A5FA',
     },
     {
       name: 'solana_rbpf',
       role: 'BPF disassembly',
       href: 'https://github.com/solana-labs/rbpf',
-      mark: '</>',
       color: '#94A3B8',
     },
   ];
@@ -349,28 +335,23 @@ function BuiltOn() {
             href={p.href}
             target="_blank"
             rel="noreferrer"
-            className="group relative flex items-center gap-4 bg-background/80 px-5 py-5 transition-colors hover:bg-background"
+            className="group relative flex items-center gap-4 bg-background/80 px-6 py-5 transition-colors hover:bg-background"
           >
             <span
               aria-hidden
-              className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-black/40 font-serif text-base text-foreground/90"
+              className="relative inline-flex h-2 w-2 shrink-0 rounded-full"
               style={{
-                boxShadow: `0 0 0 1px ${p.color}30 inset, 0 12px 32px -16px ${p.color}50`,
+                background: p.color,
+                boxShadow: `0 0 12px ${p.color}AA, 0 0 24px ${p.color}55`,
               }}
-            >
-              <span
-                className="absolute inset-0 rounded-lg opacity-40 blur-md transition-opacity group-hover:opacity-70"
-                style={{ background: `radial-gradient(60% 60% at 50% 40%, ${p.color}40, transparent 70%)` }}
-              />
-              <span className="relative">{p.mark}</span>
-            </span>
+            />
             <div className="min-w-0">
               <div className="truncate text-sm font-medium text-foreground">{p.name}</div>
               <div className="mt-0.5 truncate text-xs text-muted-foreground">{p.role}</div>
             </div>
             <span
               aria-hidden
-              className="ml-auto translate-x-0 text-muted-foreground/60 transition-all group-hover:translate-x-0.5 group-hover:text-foreground"
+              className="ml-auto text-muted-foreground/50 transition-all group-hover:translate-x-0.5 group-hover:text-foreground"
             >
               →
             </span>
