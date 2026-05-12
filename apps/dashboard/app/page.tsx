@@ -273,30 +273,109 @@ function Features() {
 }
 
 function BuiltOn() {
-  const partners = [
-    'Squads V4',
-    'Surfpool',
-    'Solana Attestation Service',
-    'Helius',
-    'WXT',
-    'solana_rbpf',
+  const partners: {
+    name: string;
+    role: string;
+    href: string;
+    mark: string;
+    color: string;
+  }[] = [
+    {
+      name: 'Squads V4',
+      role: 'Multisig program',
+      href: 'https://github.com/Squads-Protocol/v4',
+      mark: 'S',
+      color: '#9945FF',
+    },
+    {
+      name: 'Surfpool',
+      role: 'Mainnet-fork simulation',
+      href: 'https://docs.surfpool.run',
+      mark: 'Sp',
+      color: '#22D3EE',
+    },
+    {
+      name: 'Solana Attestation Service',
+      role: 'Approval receipts',
+      href: 'https://attest.solana.com',
+      mark: 'A',
+      color: '#14F195',
+    },
+    {
+      name: 'Helius',
+      role: 'Dedicated RPC',
+      href: 'https://www.helius.dev',
+      mark: 'H',
+      color: '#F472B6',
+    },
+    {
+      name: 'WXT',
+      role: 'MV3 extension framework',
+      href: 'https://wxt.dev',
+      mark: 'W',
+      color: '#60A5FA',
+    },
+    {
+      name: 'solana_rbpf',
+      role: 'BPF disassembly',
+      href: 'https://github.com/solana-labs/rbpf',
+      mark: '</>',
+      color: '#94A3B8',
+    },
   ];
   return (
     <section className="relative pb-24">
-      <div className="rounded-2xl border border-border bg-background/40 p-8 backdrop-blur sm:p-10">
-        <div className="mb-6 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-          Built on
+      <div className="mb-8 flex items-end justify-between gap-4">
+        <div>
+          <div className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            Built on
+          </div>
+          <h2 className="font-serif text-4xl tracking-tight sm:text-5xl">
+            The Solana stack, end to end.
+          </h2>
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 md:grid-cols-6">
-          {partners.map((p) => (
-            <div
-              key={p}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+        <a
+          href="https://github.com/ashutosh887/plumb"
+          className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+        >
+          See the source →
+        </a>
+      </div>
+
+      <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border/60 sm:grid-cols-2 lg:grid-cols-3">
+        {partners.map((p) => (
+          <a
+            key={p.name}
+            href={p.href}
+            target="_blank"
+            rel="noreferrer"
+            className="group relative flex items-center gap-4 bg-background/80 px-5 py-5 transition-colors hover:bg-background"
+          >
+            <span
+              aria-hidden
+              className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-black/40 font-serif text-base text-foreground/90"
+              style={{
+                boxShadow: `0 0 0 1px ${p.color}30 inset, 0 12px 32px -16px ${p.color}50`,
+              }}
             >
-              {p}
+              <span
+                className="absolute inset-0 rounded-lg opacity-40 blur-md transition-opacity group-hover:opacity-70"
+                style={{ background: `radial-gradient(60% 60% at 50% 40%, ${p.color}40, transparent 70%)` }}
+              />
+              <span className="relative">{p.mark}</span>
+            </span>
+            <div className="min-w-0">
+              <div className="truncate text-sm font-medium text-foreground">{p.name}</div>
+              <div className="mt-0.5 truncate text-xs text-muted-foreground">{p.role}</div>
             </div>
-          ))}
-        </div>
+            <span
+              aria-hidden
+              className="ml-auto translate-x-0 text-muted-foreground/60 transition-all group-hover:translate-x-0.5 group-hover:text-foreground"
+            >
+              →
+            </span>
+          </a>
+        ))}
       </div>
     </section>
   );
