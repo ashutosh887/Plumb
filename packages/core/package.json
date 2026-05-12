@@ -3,13 +3,25 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./decoders": "./src/decoders/index.ts",
-    "./risk": "./src/risk/index.ts",
-    "./types": "./src/types.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./decoders": {
+      "types": "./dist/decoders/index.d.ts",
+      "default": "./dist/decoders/index.js"
+    },
+    "./risk": {
+      "types": "./dist/risk/index.d.ts",
+      "default": "./dist/risk/index.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/types.js"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
