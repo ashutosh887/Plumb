@@ -9,25 +9,25 @@ const SAMPLE_BASE64 =
 
 export default function Landing() {
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
-
+    <>
       <Nav />
-
-      <div className="relative mx-auto max-w-6xl px-6">
-        <Hero />
-        <BeforeAfter />
-        <Features />
-        <BuiltOn />
-        <Footer />
-      </div>
-    </main>
+      <main className="relative">
+        <div className="grid-bg pointer-events-none absolute inset-0 -z-10" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-6">
+          <Hero />
+          <BeforeAfter />
+          <Features />
+          <BuiltOn />
+          <Footer />
+        </div>
+      </main>
+    </>
   );
 }
 
 function Nav() {
   return (
-    <div className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+    <div className="sticky top-0 z-50 border-b border-white/[0.06] bg-background/40 backdrop-blur-2xl backdrop-saturate-150">
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
         <Logo />
         <div className="flex items-center gap-1">
@@ -86,6 +86,14 @@ function GitHubIcon() {
   );
 }
 
+function XIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
 function Badge({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/40 px-2.5 py-1 text-xs text-muted-foreground backdrop-blur">
@@ -110,8 +118,10 @@ function Hero() {
         See what you're <span className="italic text-muted-foreground">actually</span> signing.
       </h1>
 
-      <p className="mx-auto mt-8 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
-        Plain-English decoding for every Squads V4 approval — before you click.
+      <p className="mx-auto mt-8 max-w-2xl text-balance text-base text-muted-foreground sm:text-lg">
+        Plumb overlays the Squads V4 approval modal with a plain-English readout
+        of every instruction — durable-nonce replay window, multisig admin
+        actions, account-state diffs, and bytecode upgrades.
       </p>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -395,8 +405,14 @@ function Footer() {
           <Link href="/inspect" className="hover:text-foreground">
             Inspect
           </Link>
-          <a href="https://x.com/plumb_so" className="hover:text-foreground">
-            @plumb_so
+          <a
+            href="https://x.com/ashutosh887_"
+            aria-label="X"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <XIcon />
           </a>
           <a
             href="https://github.com/ashutosh887/plumb"
